@@ -1,0 +1,7 @@
+.th.day-cell {
+  width: 156.06px; /* 他の曜日のセルに適用される幅 */
+}
+
+.th.day-cell.sun {
+  width: 156.06px !important; /* 日曜日のセルに特定の幅を強制適用 */
+}

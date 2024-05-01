@@ -1,0 +1,76 @@
+body.reservations-show {
+  min-height: 100vh; /* 追加:画面全体の高さ（viewport heightの100%）に指定 */
+  text-align: center;
+  padding: 1rem;
+  background-image: url('5199112_s.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #3ecdc6 opacity;
+}
+h1,
+p {
+  margin-bottom: 2rem;
+}
+
+
+.container {
+  width: 1170px;
+  padding: 0px 15px;
+  margin: 0 auto;
+
+}
+
+.title h1 {
+  color: white;  
+  font-size: 2em; 
+  text-align: center;
+}
+
+.col-12 text-right {
+  position: relative;
+
+}
+
+.content {
+  margin-top: -30px;  /* 数値は必要に応じて調整します */
+  font-size: 18px;
+}
+
+
+
+.item-red-btn {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: #ea352d;
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFF;
+  margin: 20px 0px;
+  padding: 2vh 10vw;
+  border-radius: 4px;
+}
+
+.item-green-btn {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color:green;
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFF;
+  margin: 20px 0px;
+  padding: 2vh 10vw;
+  border-radius: 4px;
+}
+
+
+
+
+
+

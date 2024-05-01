@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <% content_for(:stylesheet) do %>
+  <%= stylesheet_link_tag 'reservations/index' %>
+  <% end %>
+  <head>
+    <meta charset="utf-8">
+    <title>KORURU</title>
+    <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="app/assets/stylesheets/reservations/index.scss">
+  </head>
+
+    <header>
+      <div class="container">
+        <div class="header-left">
+          <h3 class="logo">KoRuRu WORKS🍀 open:10:00 ~ close:19:00 </h3>
+        </div>
+        <div class="header-right">
+         
+          <% if user_signed_in? %>
+           <li><%= link_to current_user.name, reservations_path, class: "user-name" %></li> 
+           <li><%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete } , class: "logout" %></li> 
+          <% else %>
+           <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
+          <% end %>
+
+        </div>
+      </div>
+    </header>

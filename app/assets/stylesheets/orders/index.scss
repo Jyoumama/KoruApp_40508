@@ -1,0 +1,79 @@
+body.orders-index {
+    min-height: 100vh; /* 追加:画面全体の高さ（viewport heightの100%）に指定 */
+    text-align: center;
+    padding: 1rem;
+    background-image: url('24358255_s.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  h1,
+  p {
+    margin-bottom: 2rem;
+  }
+  
+  .container {
+    width: 1170px;
+    padding: 0px 15px;
+    margin: 0 auto;
+  
+  }
+  
+  .title h1 {
+    color: white;
+    font-size: 2em; 
+    text-align: center;
+  }
+  
+  .col-12 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content {
+    margin-top: -10px;
+    font-size: 20px;
+    background-color: rgba(#E0F4FF,0.3);
+  }
+
+  .buy-btn {
+    text-align: center;
+    transform: translateY(-150px);
+  }
+
+  .explain h3{
+    font-size:16px;
+    color:aqua;
+  }
+
+
+#open,
+#close {
+    background: #ed8;
+    border: 3px solid #eb8;
+    border-radius: .5rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+}
+
+#mask {
+    background: rgba(0, 0, 0, .6);
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+}
+#modal {
+    background: #fff;
+    max-width: 36rem;
+    padding: 2rem;
+    border-radius: .5rem;
+    position: absolute;
+    inset: 10rem 0 auto;
+    margin: auto;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+}

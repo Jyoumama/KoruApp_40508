@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KoruApp40508</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <%= stylesheet_link_tag "https://unpkg.com/ress/dist/ress.min.css" %>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+    <%#stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap", media: "all" %>
+   
+    <%= stylesheet_link_tag "style" %>
+    <%= javascript_include_tag "script" %>
+    <%= favicon_link_tag asset_path('icons8-favorite-16.png') %>
+
+    <%# favicon_link_tag asset_path('favicon.svg') %>
+
+    <%= yield(:stylesheet) %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+

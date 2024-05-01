@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <% content_for(:stylesheet) do %>
+  <%= stylesheet_link_tag 'reservations/index' %>
+  <% end %>
+  <head>
+    <meta charset="utf-8">
+    <title>KORURU</title>
+    <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="app/assets/stylesheets/reservations/index.scss">
+  </head>
+  <body class="reservations-index">
+      <div class="header">
+        <div class="header-left">
+          <h3 class="logo">KoRuRu WORKS🍀 open:10:00 ~ close:19:00 </h3>
+        </div>
+        <div class="header-right">
+          <% if user_signed_in? %>
+           <li><%= link_to current_user.name, reservations_path, class: "user-name" %></li> 
+           <li><%= link_to 'ログアウト', destroy_user_session_path,method: :delete, class: "sign-out" %></li>
+          <% else %>
+           <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
+          <% end %>
+        </div>
+      </div>
+      </header>
+
+    <div class="top-wrapper">
+      <div class="container">
+        <h1>KORURU WORKING SPACE</h1>
+        <h1>Reservation</h1>
+        <p>KoRuRuはコワーキングスペースの予約アプリです。</p>
+        <p>空席があれば、24時間、いつでもお好きな時間にオンラインで予約ができます。</p>
+        <div class="btn-wrapper">
+          <%= link_to"新規登録はこちら",new_user_registration_path, class:"btn signup" %>
+          <p>or sign up with</p>
+          <a href="#" class="btn facebook"><i class="fab fa-facebook"></i>Facebookで登録</a>
+          <a href="#" class="btn x-twitter"><i class="fab fa-x-twitter"></i>  twitterで登録</a>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="seat-wrapper">
+      <!-- ここにコードを書いていきましょう -->
+      <div class="container">
+        <div class="heading">
+          <h2>Let's Check the Vacancy & Price info!!</h2>
+        </div>
+        <div class="seats">
+          <h2 class="heading-name">座席のタイプ</h2>
+          <div class="seat-list">
+            <div class="seat">
+             <div class="seat-name1">個室ブースタイプ(A)</div>
+              <%= image_tag("22227024_s.jpg", alt: "seat-type1", class: "seat-image") %>
+              <p class="txt-contents1">800円/1hr<br>3室ご用意<br>1室:1名まで</p>
+            </div>
+            <div class="seat">
+              <div class="seat-name2">集合テーブルタイプ(B)</div>
+              <%= image_tag("2290009_s.jpg", alt: "seat-type2", class: "seat-image") %>
+              <p class="txt-contents2">500円/1hr<br>1名1席<br>最大10名まで</p>
+            </div>
+            <div class="seat">
+              <div class="seat-name3">会議室タイプ(C)</div>
+              <%= image_tag("22006587_s.jpg", alt: "seat-type3", class: "seat-image") %>
+               <p class="txt-contents3">1200円/1hr<br>2部屋ご用意<br>1室利用時:2名以上~最大12名まで</p>
+            </div>
+            <div class="seat">
+               <div class="seat-name4">こたつタイプ(K)</div>
+               <%= image_tag("4674336_s.jpg", alt: "seat-type4", class: "seat-image") %>
+               <p class="txt-contents4">700円/1hr🌸人気です!🌸<br>1名様のみ<br>🍉夏は座面テーブル席になります🍉</p>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </div>
+    <div class="message-wrapper">
+    </div>
+  </body>
+</html>
+
+    <section class="hero">
+        <h1 class="title">Ko.ru.ru WorkingSpace Reservation</h1>
+    </section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center title ">
+      <h1>予約画面</h1>
+      <p>3ヶ月先まで予約することができます。</p>
+    </div>
+     <div class="col-12 mt-3">
+       <%= week_calendar events: @reservations do |date, reservations| %>
+        <%= date.day %>
+       <% end %>
+    </div>
+  </div>
+</div>
+     <%# if user_signed_in? && @reservation.present? && current_user.id == @reservation.user_id %>
+       <%# div class="col-12 mt-3" %>
+       <%# week_calendar events: @reservations do |date, reservations| %>
+       <%# date.day %>
+       <%# end %>
+      <%#</div>%>
+      <%# end %> 
+
+<%= link_to new_reservation_path, class: 'purchase-btn' do %>
+      <span class='purchase-btn-text'>予約する</span>
+      <%= image_tag 'icon_hand.png', size: '185x50', class: "purchase-btn-icon" %>
+    <% end %>
+
+<footer>
+  <div class="container">
+    <h3>KoRuRu WORKS 🍀🐤</h3>
+    <p>Copyright(C) Koruru Works ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
+</html>

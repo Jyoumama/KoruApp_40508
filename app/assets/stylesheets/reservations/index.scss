@@ -1,0 +1,339 @@
+body reservations-index {
+  position: relative;
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN";
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 1170px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.top-wrapper {
+  padding: 180px 0 100px 0;
+  background-image: image-url('4929816_s.jpg');
+  background-size: cover;
+  color: rgba(5, 17, 14, 0.915);
+  text-align: center;
+}
+
+.top-wrapper h1 {
+  opacity: 0.7;
+  font-size: 45px;
+  letter-spacing: 5px;
+}
+
+.top-wrapper p {
+  opacity: 0.7;
+}
+
+.btn-wrapper {
+  margin: 20px 0;
+}
+
+.btn-wrapper p {
+  margin: 10px 0;
+}
+
+.signup {
+  background-color: #239b76;
+}
+
+.facebook {
+  background-color: #3b5998;
+  margin-right: 10px;
+}
+
+.x-twitter {
+  background-color: black;
+  color: white;
+}
+
+.btn {
+  padding: 8px 24px;
+  color: white;
+  display: inline-block;
+  opacity: 0.8;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+.header {
+  position:absolute;
+  height: 65px;
+  width: 100%;
+  background-color: rgba(34, 49, 52, 0.9);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  width: 120x;
+  color:#f7f7f7;
+  display: flex;
+  padding: 20px 40px;
+}
+
+.header-left {
+  float: left;
+}
+
+.header-right {
+  float: right;
+  display: flex;
+  list-style: none;
+  align-items: flex-end;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all 0.5s;
+}
+
+.header-right li {
+ border: solid 0.5px lightslategray;
+}
+
+.header-right:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-right a {
+  line-height: 65px;
+  padding: 0 25px;
+  color: white;
+  display: block;
+}
+
+.login {
+  margin: 0px 20px;
+}
+
+
+.user-name {
+  text-decoration: none;
+  margin-right: 1.5vw;
+  margin-left: 1.5vw;
+  color: #333333;
+  font-weight: bold;
+}
+
+.sign-out {
+  text-decoration: none;
+  color: #333333;
+}
+
+/* lesson-wrapperクラスのCSSを指定してください */
+.seat-wrapper {
+  height: 500px;
+  padding-bottom: 80px;
+  background-color: #f7f7f7;
+}
+
+/* headingクラスのCSSを指定してください */
+.heading {
+  padding-top: 25px;
+  padding-bottom: 15px;
+  color: #5f5d60;
+}
+
+/* headingの中の<h2>のCSSを指定してください */
+.heading h2 {
+  font-weight: normal;
+}
+
+.heading-name {
+  text-align: center;
+  padding: 0 0 15px 0;
+}
+
+.seat {
+  position: relative;
+  display: flex;
+  width: 25%;
+}
+
+.seat-list {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+
+.seat-name1 {
+  position: absolute;
+  top: -10%;
+  left: 45%;
+  transform: translate(-50%,-50%);
+  font-size: 16px;
+  display: inline-block;
+  color: rgb(33, 30, 34);
+  background-color: yellow;
+}
+
+.seat-name2 {
+  position: absolute;
+  width: 60%;
+  top: -10%;
+  left: 45%;
+  transform: translate(-50%,-50%);
+  font-size: 16px;
+  display: inline-block;
+  color: rgb(33, 30, 34);
+  background-color: orange;
+}
+
+.seat-name3 {
+  position: absolute;
+  top: -10%;
+  left: 45%;
+  transform: translate(-50%,-50%);
+  font-size: 16px;
+  display: inline-block;
+  color: rgb(33, 30, 34);
+  background-color: rgb(101, 237, 101);
+}
+
+.seat-name4 {
+  position: absolute;
+  top: -10%;
+  left: 45%;
+  transform: translate(-50%,-50%);
+  font-size: 16px;
+  display: inline-block;
+  color: rgb(33, 30, 34);
+  background-color: rgb(237, 101, 101);
+}
+
+.seat-image {
+  height: 250px;
+  width: 250px;
+}
+
+.txt-contents1 {
+  position: absolute;
+  top: 100%;
+  left: 25%;
+  width: 70%;
+  display: inline-block;
+  margin: 20px;
+  font-size: 14px;
+  color: #161517;
+  }
+
+.txt-contents2 {
+  position: absolute;
+  top: 100%;
+  left: 23%;
+  width: 75%;
+  display: inline-block;
+  margin: 20px;
+  font-size: 14px;
+  color: #161517;
+  }
+
+  .txt-contents3 {
+    position: absolute;
+    top: 100%;
+    left: 1%;
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    margin: 20px;
+    font-size: 14px;
+    color: #161517;
+    }
+
+  .txt-contents4 {
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    margin: 20px;
+    font-size: 14px;
+    color: #161517;
+    }
+  
+
+.row {
+  margin-bottom:55px;
+}
+
+.hero h1 {
+ margin-left: 30px;
+ font-weight: normal;
+ display: flex;
+}
+
+.col-12 text-center p {
+ padding-bottom: 40px;
+}
+
+
+footer img {
+  width: 125Px;
+   
+ }
+ 
+ /* <footer>の中の<p>のCSSを指定してください */
+ footer p {
+  color: #b3aeb5; 
+  font-size: 12px;
+ }
+ 
+ /* <footer>のCSSを指定してください */
+ footer {
+ padding-top: 30px;  
+ }
+
+ body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN";
+}
+
+.container {
+  width: 1170px;
+  padding: 0px 15px;
+  margin: 0 auto;
+
+}
+
+.title {
+  display: block;
+}
+
+.title h1 {
+  color: black;
+  font-size: 2em; 
+  text-align: left;
+  margin-left: 0;
+  
+}
+
+.title p {
+  color: black;
+} 
+
+
+.btn btn-primary mx-auto d-block {
+ border: solid 1px;
+ color:black;
+}
+
+
+.submit {
+  background-color: #239b76;
+}
+
+

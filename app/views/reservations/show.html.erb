@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <% content_for(:stylesheet) do %>
+  <%= stylesheet_link_tag 'reservations/show' %>
+  <% end %>
+  <head>
+    <meta charset="utf-8">
+    <title>KORURU</title>
+    <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="app/assets/stylesheets/reservations/show.scss">
+  </head>
+  <body class="reservations-show">
+  <div class="container">
+  <div class="row">
+      <div class="col-12 text-center title">
+      <h1>予約確認画面</h1>
+      </div>
+
+    <div class="col-12 mt-3 text-center content">
+      <div>
+        <% if flash[:notice] %>
+       <div class="alert alert-success"><%= notice %></div>
+        <% end %>
+        <label><strong>席のタイプ：</strong></label>
+        <p style="display:inline;"><%= @reservation.seat_type.name %></p>
+      </div>
+      <div>
+        <label><strong>日付：</strong></label>
+        <p style="display:inline;"><%= @reservation.day %></p>
+      </div>
+      <div>
+        <label><strong>時間：</strong></label>
+        <p style="display:inline;"><%= @reservation.time %></p>
+      </div>
+    </div>
+
+    <div class="col-12 text-right">
+    <div>
+    <%= link_to '予約を修正したい場合：予約画面に戻る' , reservations_path(@reservation) ,class: "item-green-btn"%>
+    </div>
+    <div>
+    <%= link_to '予約を完了する', reservation_orders_path(@reservation), data: {turbo: false}, class:"item-red-btn"%>
+   </div>
+   </div>
+  </div>
+</div>
+
