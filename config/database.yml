@@ -16,7 +16,7 @@ test:
   username: root
   password:
   host: localhost
-  database:KoruApp_40508_test
+  database: KoruApp_40508_test
 
 production:
   <<: *default
