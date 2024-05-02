@@ -36,7 +36,7 @@
 
     <div class="col-12 text-right">
     <div>
-    <%= link_to '予約を修正したい場合：予約画面に戻る' , reservations_path(@reservation) ,class: "item-green-btn"%>
+    <%= link_to '予約を修正したい場合：予約画面に戻る' , new_reservations_path(@reservation) ,class: "item-green-btn"%>
     </div>
     <div>
     <%= link_to '予約を完了する', reservation_orders_path(@reservation), data: {turbo: false}, class:"item-red-btn"%>

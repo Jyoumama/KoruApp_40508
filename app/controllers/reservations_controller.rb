@@ -35,7 +35,7 @@ class ReservationsController < ApplicationController
         if @reservation.save
           redirect_to reservation_path @reservation.id
         else
-          render :new
+          render :new, status: :unprocessable_entity
         end
       end
     end
