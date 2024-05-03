@@ -1,0 +1,144 @@
+//ここからreservations/edit.html.erbのscss
+body.reservations-new {
+  min-height: 100vh; /* 追加:画面全体の高さ（viewport heightの100%）に指定 */
+  text-align: center;
+  padding: 1rem;
+  background-image: url('5199112_s.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+h1,
+p {
+  margin-bottom: 2rem;
+}
+
+.container {
+  width: 1170px;
+  padding: 0px 15px;
+  margin: 0 auto;
+
+}
+
+.title h1 {
+  color: white;  /* 例: 文字色を青に設定 */
+  font-size: 2em; 
+  text-align: center;
+}
+
+.btn btn-primary mx-auto d-block {
+ border: solid 1px;
+ color:black;
+}
+
+.form-control{
+  text-align: center;
+  background-color:white;
+  font-size: 20px;
+  color: black;
+  margin: 20px 20px;
+  padding: 2vh 10vw;
+
+}
+
+.submit {
+  text-align: center;
+  background-color:#239b76;
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFF;
+  margin: 20px 20px;
+  padding: 2vh 10vw;
+  border-radius: 4px;
+  transition: all 0.5s;
+}
+
+
+/* テキストフィールドに適用 */
+.form-control {
+  background-color: #fff; /* 背景色 */
+  font-size: 14px; /* テキストサイズ */
+}
+
+/* セレクトボックスに適用 */
+.select-box {
+    height: 40px;
+    width: 80%;
+    background-color: #f5f5f5;
+    padding-left: 20px;
+  }
+  
+  label[for='reservation_time'] {
+    color: black;    /* テキストカラーを青に設定 */
+    font-size: 18px; /* フォントサイズを20pxに設定 */
+    margin-top: 20px; /* 上側の余白を10pxに設定 */
+    padding-right: 48px;
+  }
+
+  label[for='reservation_seat_type'] {
+    color: blue;    /* テキストカラーを青に設定 */
+    font-size: 15px; /* フォントサイズを20pxに設定 */
+    margin-top: 20px; /* 上側の余白を10pxに設定 */
+    padding: 10px;
+  }
+
+
+
+.seat.form-group {
+  position: relative;
+  width: 100%;
+  background-color: lightcyan;
+  border: solid 1px;
+}
+
+.select-box {
+  position: absolute;
+  top: 20px;
+  left: 120px;
+  background-color:white;
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+  margin: 0px 0px;
+  padding: 1vh 2vw;
+  display: flex;
+  text-align: center;
+  width: 130px;
+  transition: all 0.5s;
+}
+
+
+.day.form-group {
+  background-color: lightcyan;
+  border: solid 1px;
+}
+
+.time.form-group {
+  background-color: lightcyan;
+  border: solid 1px
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;   /* viewport heightの80%. 必要に応じて変更できます */
+}
+
+
+
+.btn btn-primary mx-auto d-block {
+  padding: 8px 24px;
+  color: chartreuse;
+  display: inline-block;
+  opacity: 0.8;
+  border-radius: 4px;
+
+}
+
+.flash-alert  {
+  p {
+    color: red;
+  }
+ }
