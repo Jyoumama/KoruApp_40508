@@ -33,19 +33,33 @@
          <%= form.collection_select(:seat_type_id, SeatType.all, :id, :name, {}, {class:"select-box", id:"seat_type"}) %>
       </div>
 
+      <%= form_for @reservation do |form| %>
        <div class="day form-group">
         <%= form.label :day, '日付' %>
-        <%= form.date_field :day, class: 'form-control', value: @day %>
+        <%= form.date_field :day, class: 'form-control' %>
        </div>
        <div class="time form-group">
         <%= form.label :time, '時間' %>
-        <% if @time.nil? %>
-        <!-- @time が nil の時、何らかのデフォルト値や空欄にする -->
-        <%= form.time_field :time, class: 'form-control', value: "" %>
-        <% else %>
-        <%= form.time_field :time, class: 'form-control', value: Time.parse(@time).strftime("%H:%M") %>
-        <% end %>
+        <%= form.time_field :time, class: 'form-control', value: @reservation.time.to_s(:time) unless @reservation.time.nil? %>
        </div>
+       <div class="submit">
+        <%= form.submit value: '予約する', class: 'btn btn-primary mx-auto d-block' %>
+       </div>
+      <% end %>
+
+       <%#<div class="day form-group">%>
+        <%# form.label :day, '日付' %>
+        <%# form.date_field :day, class: 'form-control', value: @day %>
+       <%#</div>%>
+       <%#<div class="time form-group">%>
+        <%# form.label :time, '時間' %>%>
+        <%# if @time.nil? %>%>
+        <!-- @time が nil の時、何らかのデフォルト値や空欄にする -->
+        <!--%= form.time_field :time, class: 'form-control', value: "" %-->
+        <%#%> else %>
+        <!--%= form.time_field :time, class: 'form-control', value: Time.parse(@time).strftime("%H:%M") %-->
+        <%# end %>
+       <!--/div>
         <%= form.hidden_field :day, value: @day %>
         <%= form.hidden_field :time, value: @time %>
         <%= form.hidden_field :start_time, value: @start_time %>

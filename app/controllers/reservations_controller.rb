@@ -1,9 +1,8 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit]
-  before_action :authenticate_user!, only: [:new, :create] #ログインが必要なアクション名を適宜追加
+  before_action :authenticate_user!, only: [:new, :create] 
 
     def index
-      @reservations = Reservation.all
       @reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
     end
 
@@ -15,14 +14,14 @@ class ReservationsController < ApplicationController
         @start_time = DateTime.parse("#{@day} #{@time} JST")
       #end
       #if @reservation.save
-        #redirect_to reservation_path @reservation.id
+        #redirect_to rservation_path @reservation.id
       else
-        render :new, status: :unprocessable_entity   
+        render :new, status: :unprocessable_entity
      end
     end 
 
     def show
-      @reservation = Reservation.find(params[:id]) 
+      @reservation = Reservation.find(params[:id])
       @date = params[:day]
     end
     
@@ -40,7 +39,8 @@ class ReservationsController < ApplicationController
       end
     end
 
-   def edit
+    def edit
+      @reservation = Reservation.find(params[:id])
     end
 
     def update
@@ -61,5 +61,3 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
   end
 end
-
-
