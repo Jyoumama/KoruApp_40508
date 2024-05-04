@@ -1,5 +1,5 @@
 class ReservationsController < ApplicationController
-  before_action :set_reservation, only: [:show, :edit]
+  before_action :set_reservation, only: [:show, :edit, :update]
   before_action :authenticate_user!, only: [:new, :create] #ログインが必要なアクション名を適宜追加
 
     def index

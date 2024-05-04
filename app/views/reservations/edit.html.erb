@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <% content_for(:stylesheet) do %>
+  <%= stylesheet_link_tag 'reservations/new' %>
+  <% end %>
+  <head>
+    <meta charset="utf-8">
+    <title>KORURU</title>
+    <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="app/assets/stylesheets/reservations/new.scss">
+  </head>
+
+  <body class="reservations-new">
+
+  <div class="container">
+  <div class="row">
+      <div class="col-12 text-center title">
+      <h1>予約編集画面</h1>
+      </div>
+
+    <div class="col-12 mt-3 content">
+       <% if flash[:notice] %>
+        <div class="flash-alert">
+          <p><%= flash[:notice] %></p>
+        </div>
+       <% end %>
+       <%= form_with model: @reservation, url: reservation_path(@reservation),method: :patch, local: true, class: 'form' do |form| %>
+       <%= render 'devise/shared/error_messages', resource: form.object %>
+
+      <div class="seat form-group">
+        <%= form.label :seat_type, '席のタイプ' %>
+        <%= form.text_field :seat_type, class: 'form-control', value: @seat_type %>
+         <%= form.collection_select(:seat_type_id, SeatType.all, :id, :name, {}, {class:"select-box", id:"seat_type"}) %>
+      </div>
+
+       <div class="day form-group">
+        <%= form.label :day, '日付' %>
+        <%= form.date_field :day, class: 'form-control', value: @reservation.day %>
+       </div>
+
+      <div class="time form-group">
+        <%= form.label :time, '時間' %>
+        <%= form.time_field :time, class: 'form-control', value: Time.parse(@reservation.time).strftime("%H:%M") %>
+      </div>
+
+       <div class="submit">
+        <%= form.submit value: '予約する', class: 'btn btn-primary mx-auto d-block' %>
+       </div>
+       <% end %>
+    <div class="col-12 text-right">
+      <%= link_to '戻る', reservations_path %>
+    </div>
+  </div>
+  </div>
+  </div>
+</body>
+</html>

@@ -16,7 +16,9 @@ class Reservation < ApplicationRecord
     validate :date_three_month_end
 
     def date_before_start
+      if day.present?
       errors.add(:day, "は過去の日付を選択できません。予約画面から正しい日付を選択してください。") if day < Date.current
+      end
     end
 
     def date_three_month_end
