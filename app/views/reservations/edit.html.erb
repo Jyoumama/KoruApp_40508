@@ -24,8 +24,7 @@
           <p><%= flash[:notice] %></p>
         </div>
        <% end %>
-       <%# <%= form_with model: @reservation, local: true, class: 'form' do |form| %> %>
-       <%= form_with model: @reservation, url: reservation_path(@reservation), method: :patch, local: true, class: 'form' do |form| %>
+       <%= form_with model: @reservation, url: reservation_path(@reservation),method: :patch, local: true, class: 'form' do |form| %>
        <%= render 'devise/shared/error_messages', resource: form.object %>
 
       <div class="seat form-group">
@@ -35,8 +34,8 @@
       </div>
 
        <div class="day form-group">
-         <%= form.label :day, '日付' %>
-         <%= form.date_field :day, class: 'form-control', value: @reservation.day %>
+        <%= form.label :day, '日付' %>
+        <%= form.date_field :day, class: 'form-control', value: @reservation.day %>
        </div>
 
       <div class="time form-group">
