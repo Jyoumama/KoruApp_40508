@@ -9,6 +9,7 @@ class ReservationsController < ApplicationController
 
     def new
       @reservation = Reservation.new
+      @reservation.seat_type = SeatType.first
       @day = params[:day]
       @time = params[:time]
       if @day.present? && @time.present?
