@@ -28,7 +28,7 @@
                 <%= user_reservation.time %>              
               </td>
               <td>
-                <%= link_to '削除', reservation_path(user_reservation.id), method: :delete, data: { confirm: "削除してよろしいですか？", commit: "削除する", cancel: "やめる", title: "ご確認ください" } %>
+                <%= link_to '削除', user_registration_path(user_reservation.id), method: :delete, data: { confirm: "削除してよろしいですか？", commit: "削除する", cancel: "やめる", title: "ご確認ください" } %>
               </td>
             </tr>             
             <% end %>
