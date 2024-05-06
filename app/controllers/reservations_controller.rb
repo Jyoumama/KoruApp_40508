@@ -7,38 +7,40 @@ class ReservationsController < ApplicationController
       @reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
     end
 
-    def new
-      @reservation = Reservation.new
-      @day = params[:day]
-      @time = params[:time]
-      if @day.present? && @time.present?
-        @start_time = DateTime.parse("#{@day} #{@time} JST")
-      #end
-      #if @reservation.save
-        #redirect_to reservation_path @reservation.id
-      else
-        render :new, status: :unprocessable_entity   
-     end
-    end 
+def new
+  @reservation = Reservation.new
+  @day = params[:day]
+  @time = params[:time]
+end
 
     def show
-      @reservation = Reservation.find(params[:id]) 
+      @reservation = Reservation.find(params[:id])
       @date = params[:day]
     end
-    
-    def create
-      @reservation = current_user.reservations.build(reservation_params)
-      if @reservation.seat_type_id == 1
-        flash[:notice] = '席のタイプを選択してください。'
-        #redirect_to new_reservation_path # ユーザーを予約ページにリダイレクトします。
-      else
-        if @reservation.save
-          redirect_to reservation_path @reservation.id
-        else
-          render :new, status: :unprocessable_entity
-        end
-      end
+
+def create
+  @reservation = current_user.reservations.build(reservation_params)
+  @time = reservation_params[:time]
+
+  if @time.present?
+    begin
+      parsed_time = Time.parse(@time)
+      @reservation.start_time = DateTime.new(@reservation.day.year, @reservation.day.month, @reservation.day.day, parsed_time.hour, parsed_time.min)
+    rescue ArgumentError
+      # 無効な時刻形式の場合の処理
     end
+  end
+
+  if @reservation.seat_type_id == 1
+    flash[:notice] = '席のタイプを選択してください。'
+  else
+    if @reservation.save
+      redirect_to reservation_path(@reservation.id)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+end
 
    def edit
     end
