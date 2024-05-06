@@ -35,12 +35,15 @@
     </div>
 
     <div class="col-12 text-right">
-    <div>
-    <%= link_to '予約を修正したい場合：予約画面に戻る' ,edit_reservation_path(@reservation) ,class: "item-green-btn"%>
-    </div>
-    <div>
-    <%= link_to '予約を完了する', reservation_orders_path(@reservation), data: {turbo: false}, class:"item-red-btn"%>
-   </div>
+     <div>
+     <%= link_to '予約を修正したい場合：予約画面に戻る' ,edit_reservation_path(@reservation) ,class: "item-green-btn"%>
+     </div>
+     <div>
+     <%= link_to '予約を完了する', reservation_orders_path(@reservation), data: {turbo: false}, class:"item-red-btn"%>
+     </div>
+     <div>
+     <%= link_to '削除する', reservation_path(@reservation), data: { turbo_method: :delete}, class:"item-blue-btn" %>
+     </div>
    </div>
   </div>
 </div>
