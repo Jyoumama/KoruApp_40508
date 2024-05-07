@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
-  before_action :set_reservation, only: [:show, :edit, :update]
-  before_action :authenticate_user!, only: [:new, :create] #ログインが必要なアクション名を適宜追加
+  before_action :set_reservation, only: [:show,:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :destroy] #ログインが必要なアクション名を適宜追加
 
     def index
       @reservations = Reservation.all
@@ -22,7 +22,6 @@ class ReservationsController < ApplicationController
     end 
 
     def show
-      @reservation = Reservation.find(params[:id]) 
       @date = params[:day]
     end
     
