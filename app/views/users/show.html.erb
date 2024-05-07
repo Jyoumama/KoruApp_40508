@@ -26,12 +26,12 @@
             <% @user_reservations.each do |user_reservation| %>
               <td>
                 <%= user_reservation.day %>
-                <%= user_reservation.time %>              
+                <%= user_reservation.time %>
               </td>
               <td>
-                <%= link_to '削除', reservation_path(user_reservation.id), method: :delete, data: { confirm: "削除してよろしいですか？", commit: "削除する", cancel: "やめる", title: "ご確認ください" } %>
+                <%= link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
-            </tr>             
+            </tr>
             <% end %>
             <% if @user_reservations.blank? %>
               <tr>
@@ -54,7 +54,7 @@
               <tr>
                 <td>
                   <%= visit_history.day %>
-                  <%= visit_history.time %>              
+                  <%= visit_history.time %>
                 </td>
               </tr>
             <% end %>

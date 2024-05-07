@@ -4,7 +4,7 @@ class SeatType < ActiveHash::Base
     { id: 2, name: 'Aタイプ' },
     { id: 3, name: 'Bタイプ' },
     { id: 4, name: 'Cタイプ' },
-    { id: 5, name: 'Kタイプ' },
+    { id: 5, name: 'Kタイプ' }
   ]
 
   include ActiveHash::Associations
