@@ -1,11 +1,25 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update]
-  before_action :authenticate_user!, only: [:new, :create] #ログインが必要なアクション名を適宜追加
+  before_action :authenticate_user!, only: [:new, :create] # ログインが必要なアクション名を適宜追加
 
-    def index
-      @reservations = Reservation.all
-      @reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
+  def index
+    @reservations = Reservation.all
+    @reservations = Reservation.all.where('day >= ?', Date.current).where('day < ?', Date.current >> 3).order(day: :desc)
+  end
+
+  def new
+    @reservation = Reservation.new
+    @day = params[:day]
+    @time = params[:time]
+    if @day.present? && @time.present?
+      @start_time = DateTime.parse("#{@day} #{@time} JST")
+      # end
+      # if @reservation.save
+      # redirect_to reservation_path @reservation.id
+    else
+      render :new, status: :unprocessable_entity
     end
+  end
 
 def new
   @reservation = Reservation.new
@@ -42,10 +56,10 @@ def create
   end
 end
 
-   def edit
-    end
+  def edit
+  end
 
-    def update
+  def update
     if @reservation.update(reservation_params)
       redirect_to reservation_path(@reservation.id)
     else
@@ -53,7 +67,17 @@ end
     end
   end
 
-    private
+  def destroy
+    @reservation = Reservation.find(params[:id])
+    if @reservation.destroy
+      flash[:success] = '予約を削除しました。'
+      redirect_to user_path(current_user.id), status: :see_other
+    else
+      render :show
+    end
+  end
+
+  private
 
   def reservation_params
     params.require(:reservation).permit(:day, :time, :user_id, :start_time, :seat_type_id)
@@ -63,5 +87,3 @@ end
     @reservation = Reservation.find(params[:id])
   end
 end
-
-
