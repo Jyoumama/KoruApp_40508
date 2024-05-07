@@ -55,9 +55,9 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     if @reservation.destroy
       flash[:success] = "予約を削除しました。"
-      redirect_to user_path(current_user.id)
+      redirect_to user_path(current_user.id), status:see_other
     else
-      render :show
+      render :show, status: :unprocessable_entity
     end
   end
 
