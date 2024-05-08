@@ -7,6 +7,12 @@ class ReservationsController < ApplicationController
       @reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
     end
 
+    def new
+      @reservation = Reservation.new
+      @day = params[:day]
+      @time = params[:time]
+    end
+
     def show
       @date = params[:day]
     end
