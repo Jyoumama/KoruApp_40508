@@ -1,9 +1,22 @@
 
-<div class="container">
+<!DOCTYPE html>
+<html>
+  <% content_for(:stylesheet) do %>
+  <%= stylesheet_link_tag 'users/show' %>
+  <% end %>
+  <head>
+    <meta charset="utf-8">
+    <title>KORURU</title>
+    <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="app/assets/stylesheets/users/show.scss">
+  </head>
+  <body class="users-show">
+  <div class="container">
   <div class="row">
-    <div class="col-12 text-center title">
+      <div class="col-12 text-center title">
       <h1>マイページ</h1>
-    </div>
+      </div>
+
     <div class="col-12 mt-3 text-center content">
       <div>
         <label><strong>名前：</strong></label>
@@ -26,12 +39,13 @@
             <% @user_reservations.each do |user_reservation| %>
               <td>
                 <%= user_reservation.day %>
-                <%= user_reservation.time %>
-              </td>
+                <%= user_reservation.time %>              
+            </td>
               <td>
                 <%= link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
             </tr>
+
             <% end %>
             <% if @user_reservations.blank? %>
               <tr>
@@ -54,7 +68,8 @@
               <tr>
                 <td>
                   <%= visit_history.day %>
-                  <%= visit_history.time %>
+                  <%= visit_history.time %>              
+
                 </td>
               </tr>
             <% end %>

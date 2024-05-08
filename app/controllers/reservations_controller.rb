@@ -1,6 +1,9 @@
 class ReservationsController < ApplicationController
+
+
   before_action :set_reservation, only: [:show, :edit, :update]
   before_action :authenticate_user!, only: [:new, :create] # ログインが必要なアクション名を適宜追加
+
 
   def index
     @reservations = Reservation.all
@@ -21,11 +24,11 @@ class ReservationsController < ApplicationController
     end
   end
 
-def new
-  @reservation = Reservation.new
-  @day = params[:day]
-  @time = params[:time]
-end
+    def new
+      @reservation = Reservation.new
+      @day = params[:day]
+      @time = params[:time]
+    end
 
     def show
       @reservation = Reservation.find(params[:id])
@@ -69,11 +72,12 @@ end
 
   def destroy
     @reservation = Reservation.find(params[:id])
+
     if @reservation.destroy
       flash[:success] = '予約を削除しました。'
       redirect_to user_path(current_user.id), status: :see_other
     else
-      render :show
+      render :show,status: :unprocessable_entity
     end
   end
 

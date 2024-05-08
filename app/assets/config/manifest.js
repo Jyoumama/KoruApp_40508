@@ -6,3 +6,4 @@
 //= link reservations/index.css
 //= link reservations/new.css
 //= link reservations/show.css
+//= link users/show.css
