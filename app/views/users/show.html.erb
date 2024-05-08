@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <% content_for(:stylesheet) do %>
@@ -39,12 +40,12 @@
               <td>
                 <%= user_reservation.day %>
                 <%= user_reservation.time %>              
-              </td>
+            </td>
               <td>
-                <%= link_to '削除', reservation_path(user_reservation.id), data:{ turbo_action: :replace, turbo_confirm: "Are you sure?" }, method: :delete %>
-                <%# link_to '削除', reservation_path(user_reservation.id), data:{turbo_method: :delete, turbo_confirm:"Are you sure?"} %>
+                <%= link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
-            </tr>             
+            </tr>
+
             <% end %>
             <% if @user_reservations.blank? %>
               <tr>
@@ -68,6 +69,7 @@
                 <td>
                   <%= visit_history.day %>
                   <%= visit_history.time %>              
+
                 </td>
               </tr>
             <% end %>

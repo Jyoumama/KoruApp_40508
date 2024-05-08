@@ -3,9 +3,6 @@ class OrdersController < ApplicationController
     @reservation = Reservation.find(params[:reservation_id])
   end
 
-  def create 
+  def create
   end
-  
-end 
-
-
+end
