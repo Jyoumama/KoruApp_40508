@@ -7,20 +7,6 @@ class ReservationsController < ApplicationController
       @reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
     end
 
-    def new
-      @reservation = Reservation.new
-      @day = params[:day]
-      @time = params[:time]
-      if @day.present? && @time.present?
-        @start_time = DateTime.parse("#{@day} #{@time} JST")
-      #end
-      #if @reservation.save
-        #redirect_to reservation_path @reservation.id
-      else
-        render :new, status: :unprocessable_entity   
-     end
-    end 
-
     def show
       @date = params[:day]
     end
