@@ -45,7 +45,7 @@
             </td>
               <td>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
-                <%= link_to '削除', reservation_path(user_reservation.id), data:{ turbo_action: :replace, turbo_confirm: "Are you sure?" }, method: :delete %>
+                <%= link_to '削除', reservation_path(user_reservation.id), data:{ turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
             </tr>
