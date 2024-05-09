@@ -41,8 +41,9 @@
                 <%= user_reservation.time %>              
             </td>
               <td>
+                <%= button_to '削除', reservation_path(user_reservation.id), method: :delete%>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
-                <%= link_to '削除', reservation_path(user_reservation.id), method: :delete,data:{ turbo_confirm: "Are you sure?",turbo:false} %>
+                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete,data:{ turbo_confirm: "Are you sure?",turbo:false} %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
             </tr>

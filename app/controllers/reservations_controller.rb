@@ -1,50 +1,44 @@
 class ReservationsController < ApplicationController
 
-
   before_action :set_reservation, only: [:show, :edit, :update]
-  before_action :authenticate_user!, only: [:new, :create, :destroy] # ログインが必要なアクション名を適宜追加
+  before_action :authenticate_user!, only: [:new, :create] # ログインが必要なアクション名を適宜追加
 
 
   def index
-    @reservations = Reservation.all
     @reservations = Reservation.all.where('day >= ?', Date.current).where('day < ?', Date.current >> 3).order(day: :desc)
   end
 
 
-    def new
-      @reservation = Reservation.new
-      @day = params[:day]
-      @time = params[:time]
-    end
+  def new
+    @reservation = Reservation.new
+    @day = params[:day]
+    @time = params[:time]
+  end
 
-    def show
-      @reservation = Reservation.find(params[:id])
-      @date = params[:day]
-    end
+  def show
+    @date = params[:day]
+  end
 
-def create
-  @reservation = current_user.reservations.build(reservation_params)
-  @time = reservation_params[:time]
-
-  if @time.present?
-    begin
+  def create
+     @reservation = current_user.reservations.build(reservation_params)
+     @time = reservation_params[:time]
+    if @time.present?
+      begin
       parsed_time = Time.parse(@time)
       @reservation.start_time = DateTime.new(@reservation.day.year, @reservation.day.month, @reservation.day.day, parsed_time.hour, parsed_time.min)
-    rescue ArgumentError
-      # 無効な時刻形式の場合の処理
+      rescue ArgumentError
+      flash[:error] = "Invalid time format" 
     end
-  end
-
-  if @reservation.seat_type_id == 1
-    flash[:notice] = '席のタイプを選択してください。'
-  else
-    if @reservation.save
+     if @reservation.seat_type_id == 1
+       flash[:notice] = '席のタイプを選択してください。'
+     else
+      if @reservation.save
       redirect_to reservation_path(@reservation.id)
-    else
+      else
       render :new, status: :unprocessable_entity
-    end
+      end
+     end
   end
-end
 
   def edit
   end
@@ -59,14 +53,17 @@ end
 
   def destroy
     @reservation = Reservation.find(params[:id])
-    if user_signed_in && current_user_id == user_reservation.id
-    if @reservation.destroy
-      flash[:success] = '予約を削除しました。'
-      redirect_to user_path(current_user.id), status: :see_other
-    else
-      render :show, status: :unprocessable_entity
-    end
-    end
+     if user_signed_in? && current_user.id == @reservation.user.id
+       if @reservation.destroy
+        flash[:success] = '予約を削除しました。'
+        redirect_to user_path(current_user.id), status: :see_other
+       else
+        render :show, status: :unprocessable_entity
+       end
+       else
+        flash[:danger] = '権限がありません。'
+        redirect_to root_path
+      end
   end
 
   private
@@ -78,4 +75,5 @@ end
   def set_reservation
     @reservation = Reservation.find(params[:id])
   end
+end
 end
