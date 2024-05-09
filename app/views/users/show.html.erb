@@ -1,15 +1,17 @@
 
 <!DOCTYPE html>
 <html>
-  <% content_for(:stylesheet) do %>
-  <%= stylesheet_link_tag 'users/show' %>
-  <% end %>
+
   <head>
     <meta charset="utf-8">
     <title>KORURU</title>
     <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="app/assets/stylesheets/users/show.scss">
+     <%= stylesheet_link_tag 'users/show' %>
+     <%= javascript_include_tag 'application' %>
   </head>
+
+
+
   <body class="users-show">
   <div class="container">
   <div class="row">
@@ -42,8 +44,9 @@
                 <%= user_reservation.time %>              
             </td>
               <td>
-                <%# link_to '削除', reservation_path(user_reservation.id), data:{ turbo_action: :replace, turbo_confirm: "Are you sure?" }, method: :delete %>
-                <%= link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
+                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
+                <%= link_to '削除', reservation_path(user_reservation.id), data:{ turbo_action: :replace, turbo_confirm: "Are you sure?" }, method: :delete %>
+                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
             </tr>
 

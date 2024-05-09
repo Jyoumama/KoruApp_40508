@@ -59,12 +59,13 @@ end
 
   def destroy
     @reservation = Reservation.find(params[:id])
-
+    if user_signed_in && current_user_id == user_reservation.id
     if @reservation.destroy
       flash[:success] = '予約を削除しました。'
       redirect_to user_path(current_user.id), status: :see_other
     else
       render :show, status: :unprocessable_entity
+    end
     end
   end
 
