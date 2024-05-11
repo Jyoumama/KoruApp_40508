@@ -42,7 +42,8 @@
                 <%= user_reservation.time %>              
               </td>
               <td>
-                <%= link_to '削除', reservation_path(user_reservation), method: :delete, data: { confirm:'本当に削除してよろしいですか？'}, remote: true, class:"delete-reservation" %>
+                 <%= link_to '削除', reservation_path(user_reservation), data: {turbo_method: :delete}, class:"delete-reservation" %>
+                <%# link_to '削除', reservation_path(user_reservation), method: :delete, data: { confirm:'本当に削除してよろしいですか？'}, class:"delete-reservation" %>
                 <%# link_to '削除', reservation_path(reservation), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, remote: true %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
                 <%# button_to '削除', reservation_path(user_reservation.id), method: :delete, onclick: "return check_form()" %>
@@ -88,11 +89,5 @@
       </div>
     </div>
     </div>
-    <%= javascript_include_tag 'application' %> <!-- ここに追加します -->
-    <script>
-      function check_form() {
-        return window.confirm("予約を削除します。よろしいですか❓")
-      };
-    </script>
 </body>
 </html>
