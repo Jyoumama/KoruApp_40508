@@ -3,8 +3,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "delete_reservation" 
 
-
-
 import { Turbo } from "@hotwired/turbo-rails";
 Turbo.start();
 
