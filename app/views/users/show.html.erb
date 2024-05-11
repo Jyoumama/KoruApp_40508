@@ -1,22 +1,22 @@
 
 <!DOCTYPE html>
 <html>
-  <% content_for(:stylesheet) do %>
-  <%= stylesheet_link_tag 'users/show' %>
-  <% end %>
+
   <head>
     <meta charset="utf-8">
     <title>KORURU</title>
     <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="app/assets/stylesheets/users/show.scss">
+     <%= stylesheet_link_tag 'users/show' %>
+     <%= javascript_importmap_tags %>
   </head>
+
   <body class="users-show">
-  <div class="container">
-  <div class="row">
+    <div class="container">
+    <div class="row">
       <div class="col-12 text-center title">
       <h1>マイページ</h1>
       </div>
-
+       <script type="module">import: "delete_reservation"</script>
     <div class="col-12 mt-3 text-center content">
       <div>
         <label><strong>名前：</strong></label>
@@ -37,15 +37,58 @@
           </thead>
           <tbody>
             <% @user_reservations.each do |user_reservation| %>
+            <tr>
               <td>
                 <%= user_reservation.day %>
                 <%= user_reservation.time %>              
-            </td>
-              <td>
-                <%= link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
-            </tr>
+              <td>
+                <%= link_to '削除', reservation_path(user_reservation),
+                  data: {turbo_method: :delete, confirm: '本当に削除しますか？'}, class: "delete-reservation" %>
 
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const deleteLinks = document.querySelectorAll('.delete-reservation');
+
+                    deleteLinks.forEach(link => {
+                      link.addEventListener('click', function(event) {
+                        event.preventDefault(); // デフォルトのリンク動作を停止
+
+                        if (confirm('本当に削除しますか？')) {
+                          fetch(link.getAttribute('href'), {
+                            method: 'DELETE',
+                            headers: {
+                              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRFトークンをヘッダーに追加
+                              'Accept': 'application/javascript', // JavaScript形式
+                              'Content-Type': 'application/json'
+                            },
+                            credentials: 'include'
+                          }).then(response => {
+                            if (response.ok) {
+                              setTimeout(function() { // 少し待機してからリダイレクト
+                                window.location.href = link.dataset.redirect; // 成功した場合、ユーザーページにリダイレクト
+                              }, 300); // 100ミリ秒
+                            } else {
+                              alert('削除に失敗しました。'); // エラーの場合、アラートを表示
+                            }
+                          }).catch(error => {
+                            alert('エラーが発生しました: ' + error); // ネットワークエラーが発生した場合
+                          });
+                        }
+                      });
+                    });
+                  });
+                </script>
+                 <%# <%= link_to '削除', reservation_path(user_reservation), data: {turbo_method: :delete}, class:"delete-reservation" %>
+                <%# link_to '削除', reservation_path(user_reservation), method: :delete, data: { confirm:'本当に削除してよろしいですか？'}, class:"delete-reservation" %>
+                <%# link_to '削除', reservation_path(reservation), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, remote: true %>
+                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
+                <%# button_to '削除', reservation_path(user_reservation.id), method: :delete, onclick: "return check_form()" %>
+                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
+                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete,data:{ turbo_confirm: "Are you sure?",turbo:false} %>
+                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
+              </td>
+              </tr>
             <% end %>
             <% if @user_reservations.blank? %>
               <tr>
@@ -53,23 +96,22 @@
               </tr>
             <% end %>
           </tbody>
-        </table>
-      </div>
-      <div class="col-12 mt-3 text-center mx-auto">
-        <h3>ご利用履歴</h3>
-        <table class="table">
-          <thead>
+         </table>
+       </div>
+       <div class="col-12 mt-3 text-center mx-auto">
+         <h3>ご利用履歴</h3>
+         <table class="table">
+           <thead>
             <tr>
               <th scope="col">予約日</th>
             </tr>
-          </thead>
+           </thead>
           <tbody>
             <% @visit_historys.each do |visit_history| %>
               <tr>
                 <td>
                   <%= visit_history.day %>
                   <%= visit_history.time %>              
-
                 </td>
               </tr>
             <% end %>
@@ -78,9 +120,11 @@
                 <td>ご利用履歴はありません。</td>
               </tr>
             <% end %>
-          </tbody>
-        </table>
+           </tbody>
+         </table>
+       </div>
       </div>
     </div>
-  </div>
-</div>
+    </div>
+</body>
+</html>

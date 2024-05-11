@@ -52,12 +52,7 @@
       <div class='buy-btn'>
        <button id="open" data-turbo-confirm >購入</button>
        <%= link_to "購入確定", reservations_path, :onclick => "return check_form()" %>
-       <section id="modal">
-            <h1>予約完了しました。</h1>
-            <p>Koruruワーキングスペースのご利用ありがとうございます。料金は、直接店舗にてお支払い下さい😊</p>
-          <button id="close">閉じる</button>
-       </section>
-       <div id="mask"></div>
+       
 
      
         <%#<%= form_with model: @order do |f| %>

@@ -7,3 +7,4 @@
 //= link reservations/new.css
 //= link reservations/show.css
 //= link users/show.css
+//= link controllers/delete_reservation.js
