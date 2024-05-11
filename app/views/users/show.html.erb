@@ -7,6 +7,7 @@
     <title>KORURU</title>
     <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
      <%= stylesheet_link_tag 'users/show' %>
+     <%= javascript_importmap_tags %>
   </head>
 
   <body class="users-show">
@@ -15,7 +16,7 @@
       <div class="col-12 text-center title">
       <h1>マイページ</h1>
       </div>
-
+       <script type="module">import: "delete_reservation"</script>
     <div class="col-12 mt-3 text-center content">
       <div>
         <label><strong>名前：</strong></label>
@@ -42,7 +43,43 @@
                 <%= user_reservation.time %>              
               </td>
               <td>
-                 <%= link_to '削除', reservation_path(user_reservation), data: {turbo_method: :delete}, class:"delete-reservation" %>
+                <%= link_to '削除', reservation_path(user_reservation),
+                  data: {turbo_method: :delete, confirm: '本当に削除しますか？'}, class: "delete-reservation" %>
+
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const deleteLinks = document.querySelectorAll('.delete-reservation');
+
+                    deleteLinks.forEach(link => {
+                      link.addEventListener('click', function(event) {
+                        event.preventDefault(); // デフォルトのリンク動作を停止
+
+                        if (confirm('本当に削除しますか？')) {
+                          fetch(link.getAttribute('href'), {
+                            method: 'DELETE',
+                            headers: {
+                              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRFトークンをヘッダーに追加
+                              'Accept': 'application/javascript', // JavaScript形式
+                              'Content-Type': 'application/json'
+                            },
+                            credentials: 'include'
+                          }).then(response => {
+                            if (response.ok) {
+                              setTimeout(function() { // 少し待機してからリダイレクト
+                                window.location.href = link.dataset.redirect; // 成功した場合、ユーザーページにリダイレクト
+                              }, 300); // 100ミリ秒
+                            } else {
+                              alert('削除に失敗しました。'); // エラーの場合、アラートを表示
+                            }
+                          }).catch(error => {
+                            alert('エラーが発生しました: ' + error); // ネットワークエラーが発生した場合
+                          });
+                        }
+                      });
+                    });
+                  });
+                </script>
+                 <%# <%= link_to '削除', reservation_path(user_reservation), data: {turbo_method: :delete}, class:"delete-reservation" %>
                 <%# link_to '削除', reservation_path(user_reservation), method: :delete, data: { confirm:'本当に削除してよろしいですか？'}, class:"delete-reservation" %>
                 <%# link_to '削除', reservation_path(reservation), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, remote: true %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
