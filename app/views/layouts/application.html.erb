@@ -7,7 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%# javascript_importmap_tags %>
 
     <%= stylesheet_link_tag "https://unpkg.com/ress/dist/ress.min.css" %>
     
@@ -18,12 +18,15 @@
     <%#stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap", media: "all" %>
    
     <%= stylesheet_link_tag "style" %>
-    <%= javascript_include_tag "script" %>
+    <%# javascript_include_tag "script" %>
     <%= favicon_link_tag asset_path('icons8-favorite-16.png') %>
 
-    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
+    <%# javascript_include_tag "application", "data-turbolinks-track": "reload" %>
 
-     <%= javascript_include_tag "application" %>
+     <%# javascript_include_tag "application" %>
+
+     <%# javascript_importmap_tags "application" %>
+
 
     <%# favicon_link_tag asset_path('favicon.svg') %>
 
