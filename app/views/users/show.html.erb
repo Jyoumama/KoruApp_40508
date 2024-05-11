@@ -9,16 +9,9 @@
      <%= stylesheet_link_tag 'users/show' %>
   </head>
 
-  <script>
-
-   function check_form() {
-   return window.confirm("予約を削除します。よろしいですか❓")
-   };
-   </script>
-
   <body class="users-show">
-  <div class="container">
-  <div class="row">
+    <div class="container">
+    <div class="row">
       <div class="col-12 text-center title">
       <h1>マイページ</h1>
       </div>
@@ -43,19 +36,21 @@
           </thead>
           <tbody>
             <% @user_reservations.each do |user_reservation| %>
+            <tr>
               <td>
                 <%= user_reservation.day %>
                 <%= user_reservation.time %>              
-            </td>
+              </td>
               <td>
+                <%= link_to '削除', reservation_path(user_reservation), method: :delete, data: { confirm:'本当に削除してよろしいですか？'}, remote: true, class:"delete-reservation" %>
+                <%# link_to '削除', reservation_path(reservation), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, remote: true %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
-                <%= button_to '削除', reservation_path(user_reservation.id), method: :delete, onclick: "return check_form()" %>
+                <%# button_to '削除', reservation_path(user_reservation.id), method: :delete, onclick: "return check_form()" %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete,data:{ turbo_confirm: "Are you sure?",turbo:false} %>
                 <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
               </td>
-            </tr>
-
+              </tr>
             <% end %>
             <% if @user_reservations.blank? %>
               <tr>
@@ -63,23 +58,22 @@
               </tr>
             <% end %>
           </tbody>
-        </table>
-      </div>
-      <div class="col-12 mt-3 text-center mx-auto">
-        <h3>ご利用履歴</h3>
-        <table class="table">
-          <thead>
+         </table>
+       </div>
+       <div class="col-12 mt-3 text-center mx-auto">
+         <h3>ご利用履歴</h3>
+         <table class="table">
+           <thead>
             <tr>
               <th scope="col">予約日</th>
             </tr>
-          </thead>
+           </thead>
           <tbody>
             <% @visit_historys.each do |visit_history| %>
               <tr>
                 <td>
                   <%= visit_history.day %>
                   <%= visit_history.time %>              
-
                 </td>
               </tr>
             <% end %>
@@ -88,9 +82,17 @@
                 <td>ご利用履歴はありません。</td>
               </tr>
             <% end %>
-          </tbody>
-        </table>
+           </tbody>
+         </table>
+       </div>
       </div>
     </div>
-  </div>
-</div>
+    </div>
+    <%= javascript_include_tag 'application' %> <!-- ここに追加します -->
+    <script>
+      function check_form() {
+        return window.confirm("予約を削除します。よろしいですか❓")
+      };
+    </script>
+</body>
+</html>
