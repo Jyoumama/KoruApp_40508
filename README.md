@@ -47,7 +47,7 @@
   [![Image from Gyazo](https://i.gyazo.com/2e35fc31ba0a73066c617e0d2fb0b37d.png)](https://gyazo.com/2e35fc31ba0a73066c617e0d2fb0b37d)
 
   空席「◯」を選択から予約完了までの一連の流れGIF
-  https://gyazo.com/e00a7ab0486a4da1b94b2b83298c3587
+  [![Image from Gyazo](https://i.gyazo.com/e00a7ab0486a4da1b94b2b83298c3587.gif)](https://gyazo.com/e00a7ab0486a4da1b94b2b83298c3587)
 
   予約完了画面（購入画面）
   [![Image from Gyazo](https://i.gyazo.com/01fa86e5c79dfdfbdfa4cd92336fa89f.jpg)](https://gyazo.com/01fa86e5c79dfdfbdfa4cd92336fa89f)
