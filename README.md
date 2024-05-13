@@ -107,7 +107,8 @@
 - belongs_to :reservation
 
 ## ER図
-![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/tc-user/projects/KoruApp_40508/ER.png?version%3D1715582361212)
+[![Image from Gyazo](https://i.gyazo.com/441276c032cf49d8e6f36ecf5a988a58.png)](https://gyazo.com/441276c032cf49d8e6f36ecf5a988a58)
+
 
 # 開発環境  
 ・フロントエンド：HTML/CSS 、Javascripts<br>
