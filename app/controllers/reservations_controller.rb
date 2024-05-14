@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
 
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create] # ログインが必要なアクション名を適宜追加
+  before_action :authenticate_user!, only: [:new, :create, :charge] # ログインが必要なアクション名を適宜追加
 
   def index
     @reservations = Reservation.all.where('day >= ?', Date.current).where('day < ?', Date.current >> 3).order(day: :desc)
@@ -68,29 +68,22 @@ class ReservationsController < ApplicationController
         format.js { render js: "alert('Unauthorized action.'); window.location = '#{user_path(current_user.id)}';" }
       end
     end
-
-    # end
-    # respond_to do |format|
-    #   format.html { redirect_to user_path(current_user.id) }
-    #   format.js  # 追加
-    # end
   end
 
-  #def destroy
-    #@reservation = Reservation.find(params[:id])
-    #if user_signed_in? && current_user.id == @reservation.user.id
-     # if @reservation.destroy
-       # flash[:success] = '予約を削除しました。'
-        #redirect_to user_path(current_user.id)
-      #else
-       # flash.now[:alert] = '削除に失敗しました。'
-        #render :show
-      #end
-     # else
-       # flash[:danger] = '権限がありません。'
-       # redirect_to root_path
-      #end
-    #end
+    def charge
+      token = params[:payjpToken]
+      begin
+        charge = Payjp::Charge.create(
+          amount: 1000, # 金額（ここでは1000円を仮定）
+          card: token,
+          currency: 'jpy'
+        )
+        flash[:notice] = "決済が成功しました。"
+      rescue Payjp::PayjpError => e
+        flash[:alert] = e.message
+      end
+      redirect_to reservations_path
+    end
 
   private
 
