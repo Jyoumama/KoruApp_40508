@@ -1,67 +1,96 @@
 <!DOCTYPE html>
-<html>
-  <% content_for(:stylesheet) do %>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>KORURU</title>
   <%= stylesheet_link_tag 'reservations/new' %>
-  <% end %>
-  <head>
-    <meta charset="utf-8">
-    <title>KORURU</title>
-    <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="app/assets/stylesheets/orders/index.scss">
-    <%#<script src="modal.js"></script>%>
-    <%# javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
- 
-  <script>
-
-   function check_form() {
-		window.confirm("予約を確定します。料金は、当日店舗にてお支払い下さい。😊")
-    };
-  </script>
-
-  <body class="orders-index">
- 
+  <script src="https://kit.fontawesome.com/f325ea1c55.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="app/assets/stylesheets/orders/index.scss">
+  <script src="https://js.pay.jp/v2/pay.js"></script>
+</head>
+<body class="orders-index">
   <div class="container">
-  <div class="row">
+    <div class="row">
       <div class="col-12 text-center title">
-      <h1>予約確認画面</h1>
+        <h1>予約確認画面</h1>
       </div>
 
-    <div class="col-12 mt-3 text-center content">
-      <div>
-        <% if flash[:notice] %>
-       <div class="alert alert-success"><%= notice %></div>
-        <% end %>
-        <label><strong>席のタイプ：</strong></label>
-        <p style="display:inline;"><%= @reservation.seat_type.name %></p>
+      <div class="col-12 mt-3 text-center content">
+        <div>
+          <% if flash[:notice] %>
+            <div class="alert alert-success"><%= flash[:notice] %></div>
+          <% end %>
+          <label><strong>席のタイプ：</strong></label>
+          <p style="display:inline;"><%= @reservation.seat_type.name %></p>
+        </div>
+        <div>
+          <label><strong>日付：</strong></label>
+          <p style="display:inline;"><%= @reservation.day %></p>
+        </div>
+        <div>
+          <label><strong>時間：</strong></label>
+          <p style="display:inline;"><%= @reservation.time %></p>
+        </div>
+        <div class="explain">
+          <h3>予約完了しました。Koruruワーキングスペースのご利用ありがとうございます😊 
+            <p>料金は、直接店舗にてお支払い下さい</p>
+          </h3>
+        </div>
       </div>
-      <div>
-        <label><strong>日付：</strong></label>
-        <p style="display:inline;"><%= @reservation.day %></p>
-      </div>
-      <div>
-        <label><strong>時間：</strong></label>
-        <p style="display:inline;"><%= @reservation.time %></p>
-      </div>
-      <div class="explain">
-      <h3>予約完了しました。Koruruワーキングスペースのご利用ありがとうございます😊 <p>料金は、直接店舗にてお支払い下さい</p></h3></div>
-    </div>
 
-
-    <div class="col-12 text-right">
-      <div class='buy-btn'>
-       <button id="open" data-turbo-confirm >購入</button>
-       <%= link_to "購入確定", reservations_path, :onclick => "return check_form()" %>
-       
-
-     
-        <%#<%= form_with model: @order do |f| %>
-         <%# <%= f.submit "購入",class:"buy-red-btn", id:"button" %>
-        <%#<% end %>
+      <div class="col-12 text-right">
+        <div class="buy-btn">
+          <form id="payment-form">
+            <input type="text" id="card-number" placeholder="カード番号" value="4242424242424242">
+            <input type="text" id="cvc" placeholder="CVC" value="123">
+            <input type="text" id="exp-month" placeholder="有効期限（月）" value="12">
+            <input type="text" id="exp-year" placeholder="有効期限（年）" value="<%= Time.now.year + 1 %>">
+            <button type="submit" id="open">購入</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+  <script>
+    document.getElementById('payment-form').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const payjp = Payjp('pk_test_your_public_key'); // 公開鍵をここに入力
+      const elements = payjp.elements();
+      const cardElement = elements.create('card');
+      cardElement.mount('#card-element');
+
+      const card = {
+        number: document.getElementById('card-number').value,
+        cvc: document.getElementById('cvc').value,
+        exp_month: document.getElementById('exp-month').value,
+        exp_year: document.getElementById('exp-year').value,
+      };
+
+      try {
+        const result = await payjp.createToken(card);
+        if (result.error) {
+          console.error(result.error.message);
+        } else {
+          const token = result.id;
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = '/your_server_side_endpoint';
+
+          const hiddenToken = document.createElement('input');
+          hiddenToken.type = 'hidden';
+          hiddenToken.name = 'payjpToken';
+          hiddenToken.value = token;
+          form.appendChild(hiddenToken);
+
+          document.body.appendChild(form);
+          form.submit();
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  </script>
 </body>
 </html>
