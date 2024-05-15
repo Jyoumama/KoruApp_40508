@@ -52,45 +52,48 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById('payment-form').addEventListener('submit', async function(event) {
-      event.preventDefault();
+   <script>
+    document.addEventListener("turbo:load", function() {
+      const payjpPublicKey = document.body.getAttribute('data-payjp-public-key');
+      const payjp = Payjp(payjpPublicKey); // 
+      
 
-      const payjp = Payjp('pk_test_your_public_key'); // 公開鍵をここに入力
-      const elements = payjp.elements();
-      const cardElement = elements.create('card');
-      cardElement.mount('#card-element');
+      const form = document.getElementById('payment-form');
+      form.addEventListener('submit', async function(event) {
+        event.preventDefault();
 
-      const card = {
-        number: document.getElementById('card-number').value,
-        cvc: document.getElementById('cvc').value,
-        exp_month: document.getElementById('exp-month').value,
-        exp_year: document.getElementById('exp-year').value,
-      };
+        const card = {
+          number: document.getElementById('card-number').value,
+          cvc: document.getElementById('cvc').value,
+          exp_month: document.getElementById('exp-month').value,
+          exp_year: document.getElementById('exp-year').value,
+        };
 
-      try {
-        const result = await payjp.createToken(card);
-        if (result.error) {
-          console.error(result.error.message);
-        } else {
-          const token = result.id;
-          const form = document.createElement('form');
-          form.method = 'POST';
-          form.action = '/your_server_side_endpoint';
+        try {
+          const result = await payjp.createToken(card);
+          if (result.error) {
+            console.error(result.error.message);
+          } else {
+            const token = result.id;
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/your_server_side_endpoint';
 
-          const hiddenToken = document.createElement('input');
-          hiddenToken.type = 'hidden';
-          hiddenToken.name = 'payjpToken';
-          hiddenToken.value = token;
-          form.appendChild(hiddenToken);
+            const hiddenToken = document.createElement('input');
+            hiddenToken.type = 'hidden';
+            hiddenToken.name = 'payjpToken';
+            hiddenToken.value = token;
+            form.appendChild(hiddenToken);
 
-          document.body.appendChild(form);
-          form.submit();
+            document.body.appendChild(form);
+            form.submit();
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
-      }
+      });
     });
   </script>
 </body>
 </html>
+
