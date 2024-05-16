@@ -14,6 +14,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_29_121725) do
   create_table "orders", charset: "utf8", force: :cascade do |t|
     t.bigint "reservation_id", null: false
     t.bigint "user_id", null: false
+    t.integer "amount", null: false
+    t.string "payjp_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reservation_id"], name: "index_orders_on_reservation_id"

@@ -39,15 +39,24 @@
 
       <div class="col-12 text-right">
         <div class="buy-btn">
-          <form id="payment-form">
-            <input type="text" id="card-number" placeholder="カード番号" value="4242424242424242">
-            <input type="text" id="cvc" placeholder="CVC" value="123">
-            <input type="text" id="exp-month" placeholder="有効期限（月）" value="12">
-            <input type="text" id="exp-year" placeholder="有効期限（年）" value="<%= Time.now.year + 1 %>">
-            <button type="submit" id="open">購入</button>
-          </form>
+             <button id="open-payment-modal">購入</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="payment-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="payment-form">
+        <input type="text" id="card-number" placeholder="カード番号" value="4242424242424242">
+        <input type="text" id="cvc" placeholder="CVC" value="123">
+        <input type="text" id="exp-month" placeholder="有効期限（月）" value="12">
+        <input type="text" id="exp-year" placeholder="有効期限（年）" value="<%= Time.now.year + 1 %>">
+        <input type="text" id="amount" placeholder="金額">
+        <input type="hidden" id="reservation_id" value="<%= @reservation.id %>">
+        <button type="submit">支払う</button>
+      </form>
     </div>
   </div>
 
@@ -56,6 +65,25 @@
       const payjpPublicKey = document.body.getAttribute('data-payjp-public-key');
       const payjp = Payjp(payjpPublicKey); // 
       
+    // ここが変更されました
+      const openButton = document.getElementById('open-payment-modal');
+      const modal = document.getElementById('payment-modal');
+      const closeButton = document.getElementsByClassName('close')[0];
+
+      openButton.onclick = function() {
+        modal.style.display = 'block';
+      }
+
+      closeButton.onclick = function() {
+        modal.style.display = 'none';
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+      // ここが変更されました
 
       const form = document.getElementById('payment-form');
       form.addEventListener('submit', async function(event) {
@@ -74,17 +102,29 @@
             console.error(result.error.message);
           } else {
             const token = result.id;
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/your_server_side_endpoint';
+            const amount = document.getElementById('amount').value;
+            const reservationId = document.getElementById('reservation_id').value;
 
+            // サーバーにトークンと金額を送信
             const hiddenToken = document.createElement('input');
             hiddenToken.type = 'hidden';
             hiddenToken.name = 'payjpToken';
             hiddenToken.value = token;
-            form.appendChild(hiddenToken);
 
-            document.body.appendChild(form);
+            const hiddenAmount = document.createElement('input');
+            hiddenAmount.type = 'hidden';
+            hiddenAmount.name = 'amount';
+            hiddenAmount.value = amount;
+
+            const hiddenReservationId = document.createElement('input');
+            hiddenReservationId.type = 'hidden';
+            hiddenReservationId.name = 'reservation_id';
+            hiddenReservationId.value = reservationId;
+
+            form.appendChild(hiddenToken);
+            form.appendChild(hiddenAmount);
+            form.appendChild(hiddenReservationId);
+            form.action = '/orders/create'; // サーバーのエンドポイント
             form.submit();
           }
         } catch (error) {
