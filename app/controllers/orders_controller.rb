@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
     reservation_id = params[:reservation_id]
     user_id = current_user.id # Assuming you have a method to get the current logged-in user
 
+   begin
     charge = Payjp::Charge.create(
       amount: amount,
       card: token,
@@ -32,6 +33,11 @@ class OrdersController < ApplicationController
       flash[:alert] = "決済に失敗しました。"
       render :index
     end
+    rescue Payjp::PayjpError => e
+      flash[:alert] = e.message
+      render :index
+    end
   end
 end
+
 
