@@ -8,3 +8,4 @@
 //= link reservations/show.css
 //= link users/show.css
 //= link controllers/delete_reservation.js
+ //= link orders/index.css

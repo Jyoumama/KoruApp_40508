@@ -9,14 +9,13 @@
      <%= stylesheet_link_tag 'users/show' %>
      <%= javascript_importmap_tags %>
   </head>
-
   <body class="users-show">
     <div class="container">
     <div class="row">
       <div class="col-12 text-center title">
       <h1>マイページ</h1>
       </div>
-       <script type="module">import: "delete_reservation"</script>
+       <!-- script type="module">import: "delete_reservation"</script>-->
     <div class="col-12 mt-3 text-center content">
       <div>
         <label><strong>名前：</strong></label>
@@ -42,9 +41,10 @@
                 <%= user_reservation.day %>
                 <%= user_reservation.time %>              
               </td>
-              <td>
-                <%= link_to '削除', reservation_path(user_reservation),
+              <td> 
+              <%#link_to '削除', reservation_path(user_reservation),
                   data: {turbo_method: :delete, confirm: '本当に削除しますか？'}, class: "delete-reservation" %>
+              <%= link_to '削除', reservation_path(user_reservation), method: :delete, class: "delete-reservation", data: { turbo_confirm: '本当に削除してよろしいですか？', redirect: user_path(current_user) } %>
 
                 <script>
                   document.addEventListener('DOMContentLoaded', function() {
@@ -65,9 +65,9 @@
                             credentials: 'include'
                           }).then(response => {
                             if (response.ok) {
-                              setTimeout(function() { // 少し待機してからリダイレクト
+                              //setTimeout(function() { // 少し待機してからリダイレクト
                                 window.location.href = link.dataset.redirect; // 成功した場合、ユーザーページにリダイレクト
-                              }, 300); // 100ミリ秒
+                              //}, 300); // 100ミリ秒
                             } else {
                               alert('削除に失敗しました。'); // エラーの場合、アラートを表示
                             }
@@ -79,14 +79,7 @@
                     });
                   });
                 </script>
-                 <%# <%= link_to '削除', reservation_path(user_reservation), data: {turbo_method: :delete}, class:"delete-reservation" %>
-                <%# link_to '削除', reservation_path(user_reservation), method: :delete, data: { confirm:'本当に削除してよろしいですか？'}, class:"delete-reservation" %>
-                <%# link_to '削除', reservation_path(reservation), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, remote: true %>
-                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
-                <%# button_to '削除', reservation_path(user_reservation.id), method: :delete, onclick: "return check_form()" %>
-                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: ".delete-reservation", onclick: "return check_form()"  %>
-                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete,data:{ turbo_confirm: "Are you sure?",turbo:false} %>
-                <%# link_to '削除', reservation_path(user_reservation.id), method: :delete, class: "delete-reservation" %>
+
               </td>
               </tr>
             <% end %>
